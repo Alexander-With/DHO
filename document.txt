@@ -1,0 +1,229 @@
+================================================================================
+Database Handeling Object(DHO)
+Writen by: Alexander With
+Version: 1.3
+
+Description: DHO is a object that can handle, shortens and simplfing database
+and MySQL interaction.
+
+Setup: Change "sql_server", "sql_username", "sql_password", "sql_database",
+located in the "DATABASE INFORMATION" section at the beginning of the document
+to your database information.
+
+Uses: create a new object.
+Syntax: $dho = new dho();
+
+Functionality:
+Connect, Select, Insert, Delete, Update, Print_query, Close
+
+Variables:
+Conn_db, Saved_tables, Saved_primary, Table_name, Col_names, Primary,
+Last_query, Error
+================================================================================
+Functionallity Descriptions:
+================================================================================
+Function: connect
+Syntax: $dho -> connect($table)
+
+Description: Selects the desired table.
+
+Returns: (object) A Mysqli object for custom queries.
+--------------------------------------------------------------------------------
+Arguments:
+[Mandatory] $table: (string)
+Syntax: $table = 'users';
+Name of the desired table.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Function: select
+Syntax: $dho -> select([$col_names], [$search], [$order], [$group], [$limit]);
+
+Description: Select entries from a desired database.
+
+Returns: (mixed) Multi-array with selected data,
+else boolian false.
+--------------------------------------------------------------------------------
+Arguments:
+[Optional]$col_names: (array)
+Syntax: $col_names = array('col1', 'col2', ...);
+
+The columns of the desired data from the table.
+If empty: Will select all columns.
+--------------------------------------------------------------------------------
+[Optional]$search: (multi-array)
+Syntax:
+$search = array(
+   'search_key'=>
+     array('col1', 'col2', ...),
+   'search_value'=>
+     array('value1', 'value2', ...),
+   'search_operator'=>
+     array('=', 'LIKE', ...),
+   'search_combinator'=>
+     array('AND', 'OR', ...)
+);
+
+The search parameters.
+If empty: No "where" cause will be set.
+--------------------------------------------------------------------------------
+[Optional]$order: (string)
+Syntax: $order = 'col1 ACS';
+
+Appends a order cause to the select statment.
+If empty: No "order" cause will be set.
+--------------------------------------------------------------------------------
+[Optional]$group: (string)
+Syntax: $group = 'col1';
+
+Appends a group cause to the select statment.
+If empty: No "group" cause will be set.
+--------------------------------------------------------------------------------
+[Optional]$limit: (string)
+Syntax: $limit = '5';
+
+Appends a limit cause to the select statment.
+If empty: No "limit" cause will be set.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Function: insert
+Syntax: $dho -> insert($values);
+
+Description: Insert data into a desired database.
+
+Returns: (mixed) The generated id for the insert if successful
+else boolian false.
+--------------------------------------------------------------------------------
+Arguments:
+[Mandatory]$values: (array)
+Syntax: $data1 = array('Data0','Data1','Data2');
+
+The data that is wanted to be inserted into the
+database. The number of data must match the number of columns of the table.If
+the data doesn't contain a primary key the function will used the next primary
+key from the database.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Function: delete
+Syntax: $dho -> delete($id);
+
+Description: Delete an entry from a desired table.
+
+Returns: (boolian) True if successful,
+else boolian false.
+--------------------------------------------------------------------------------
+Arguments:
+[Mandatory]$id: (multi)
+Syntax: $id = 1; or $id = array(1,2);
+
+The id of the entry that is being deleted.
+For multiple deletions use array.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Function: update
+Syntax: $dho -> update($data, $id);
+
+Description: Updates a entry by id.
+
+Returns: (boolian) True if successful,
+else boolian false.
+--------------------------------------------------------------------------------
+Arguments:
+[Mandatory]$values: (array)
+Syntax: array('Column1'=>'Data1','Column2'=>'Data2',...)
+
+Associative array with data you want to update. "Array Key" is the column you
+want and to update and "Array Value" is the data you want to update.
+--------------------------------------------------------------------------------
+Arguments:
+[Mandatory]$id: (multi)
+Syntax: $id = 1; or $id = array(1,2);
+
+The id of the entry that is being updated.
+For multiple updatings use array.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Function: print_query
+Syntax: $dho -> print_query($query);
+
+Description: Prints out a html table.
+!Use only with data from the select function!
+--------------------------------------------------------------------------------
+Arguments:
+[Mandatory]$query: (multi-array)
+Syntax:
+$query = array(
+  array('col1'=>'data1', 'col2'=>'data2'),
+  array('col1'=>'data1', 'col2'=>'data2')
+);
+
+Multidimentional array given from select function.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Function: close
+Syntax: $dho -> close();
+
+Description: Closes The database connection.
+
+================================================================================
+Variable Descriptions:
+================================================================================
+conn_db:
+Syntax: $dho -> conn_db;
+
+A mysqli object that is connected to the database.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+saved_tables:
+Syntax: $dho -> saved_tables;
+
+All the table structures that have been used by DHO.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+saved_primary:
+Syntax: $dho -> saved_primary;
+
+All the primary keys for the used tables used by DHO.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+table_name:
+Syntax: $dho -> table_name;
+
+Current table used by DHO.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+col_names:
+Syntax: $dho -> col_names;
+
+Current table's structure used by DHO.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+primary:
+Syntax: $dho -> primary;
+
+Current table's primary key used by DHO.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+last_query:
+Syntax: $dho -> last_query;
+
+Last used query send to the database.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+error:
+Syntax: $dho -> error;
+
+Error message.
+================================================================================
