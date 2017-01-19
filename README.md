@@ -1,6 +1,6 @@
 # DHO
 
-Database Handeling Object(DHO)
+Database Handling Object(DHO)
 
 Writen by: Alexander With
 
