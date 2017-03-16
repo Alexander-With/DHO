@@ -200,8 +200,21 @@
 			}
 			// Bind and execute SQL request
 			$type = '';
-			foreach ($placeholder_value as $key => $value) {
-				$type .= 's';
+			foreach ($insert_data[0] as $key => $value) {
+				switch(gettype($value)){
+					case 'integer':
+						$type .= 'i';
+						break;
+					case 'double':
+						$type .= 'd';
+						break;
+					case 'string':
+						$type .= 's';
+						break;
+					default:
+						$type .= 's';
+						break;
+				}
 			}
 			$c = 0;
 			foreach ($insert_data as $outer_key => $outer_value) {
